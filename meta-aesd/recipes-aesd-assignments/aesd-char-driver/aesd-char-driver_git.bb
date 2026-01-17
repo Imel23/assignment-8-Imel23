@@ -1,0 +1,33 @@
+
+SUMMARY = "AESD Char Driver"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
+
+SRC_URI = "git://github.com/Imel23/assignment-8-Imel23.git;protocol=ssh;branch=main"
+
+PV = "1.0+git${SRCPV}"
+SRCREV = "e44c87395d8c7fa7487fd954545478c5bedf3a14"
+
+S = "${WORKDIR}/git/aesd-char-driver"
+
+inherit module
+inherit update-rc.d
+
+INITSCRIPT_NAME = "aesd-char-driver-start-stop"
+INITSCRIPT_PARAMS = "defaults 98"
+
+
+EXTRA_OEMAKE:append:task-install = " -C ${STAGING_KERNEL_DIR} M=${S}/aesd-char-driver"
+
+FILES:${PN} += "${bindir}/aesdchar_load ${bindir}/aesdchar_unload ${sysconfdir}/*"
+
+
+do_install:append () {
+    install -d ${D}${bindir}
+    install -m 0755 ${S}/aesdchar_load ${D}${bindir}/
+    install -m 0755 ${S}/aesdchar_unload ${D}${bindir}/
+    
+    install -d ${D}${sysconfdir}/init.d
+    install -m 0755 ${S}/aesd-char-driver-start-stop ${D}${sysconfdir}/init.d/${INITSCRIPT_NAME}
+
+}
