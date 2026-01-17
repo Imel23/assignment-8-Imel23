@@ -20,14 +20,17 @@ INITSCRIPT_PARAMS = "defaults 98"
 EXTRA_OEMAKE:append:task-install = " -C ${STAGING_KERNEL_DIR} M=${S}/aesd-char-driver"
 
 FILES:${PN} += "${bindir}/aesdchar_load ${bindir}/aesdchar_unload ${sysconfdir}/*"
+RDEPENDS:${PN} += "kernel-module-aesdchar"
 
 
-do_install:append () {
+do_install () {
     install -d ${D}${bindir}
     install -m 0755 ${S}/aesdchar_load ${D}${bindir}/
     install -m 0755 ${S}/aesdchar_unload ${D}${bindir}/
-    
+
     install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${S}/aesd-char-driver-start-stop ${D}${sysconfdir}/init.d/${INITSCRIPT_NAME}
 
+    unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+    oe_runmake -C ${STAGING_KERNEL_DIR} M=${S} modules_install INSTALL_MOD_PATH=${D}
 }
