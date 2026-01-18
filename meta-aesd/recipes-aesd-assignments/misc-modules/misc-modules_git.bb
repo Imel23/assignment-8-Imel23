@@ -7,7 +7,7 @@ SRC_URI = "git://git@github.com/Imel23/assignment-7-Imel23.git;protocol=ssh;bran
            file://fix_faulty_module_name.patch"
 
 PV = "1.0+git${SRCPV}"
-SRCREV = "${AUTOREV}"
+SRCREV = "147c28293d44b99acec92220e2d2f16bd0a92700"
 
 S = "${WORKDIR}/git/misc-modules"
 
