@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 SRC_URI = "git@github.com:Imel23/assignment-8-Imel23.git;protocol=ssh;branch=main"
 
 PV = "1.0+git${SRCPV}"
-SRCREV = "91eff8bbf2eda25551491b06e1d5a77b82e23ff1"
+SRCREV = "e4db424e9eb3905feba1d21ae25ecd7e70f8cf06"
 
 S = "${WORKDIR}/git/aesd-char-driver"
 
